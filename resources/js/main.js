@@ -10,18 +10,34 @@ var completeSVG = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:x
 
 renderTodoList();
 
+//checking if value just have a white space! e.g " " or "   "
+function checkEmpty(val){
+  var value = val.split("")
+  var result = false
+
+  for(i=0;i<value.length;i++){
+    if(value[i] != " "){
+      result = true
+    }
+  }
+
+  return result
+}
+
 // User clicked on the add button
 // If there is any text inside the item field, add that text to the todo list
 document.getElementById('add').addEventListener('click', function() {
   var value = document.getElementById('item').value;
-  if (value) {
+  var checkValue = checkEmpty(value)
+  if (value && checkValue) {
     addItem(value);
   }
 });
 
 document.getElementById('item').addEventListener('keydown', function (e) {
   var value = this.value;
-  if ((e.code === 'Enter' || e.code === 'NumpadEnter') && value) {
+  var checkValue = checkEmpty(value)
+  if ((e.code === 'Enter' || e.code === 'NumpadEnter') && value && checkValue) {
     addItem(value);
   }
 });
